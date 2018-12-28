@@ -1,6 +1,7 @@
 // Copyright 2013 Simon HEGE. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
+// Forked and edited for Korean support & removed other language support.
 
 //timeago allows the formatting of time in terms of fuzzy timestamps.
 //For example:
@@ -17,10 +18,11 @@ import (
 
 const (
 	Day   time.Duration = time.Hour * 24
-	Month time.Duration = Day * 30
+	Month time.Duration = Day * 31
 	Year  time.Duration = Day * 365
 )
 
+// FormatPeriod shit
 type FormatPeriod struct {
 	D    time.Duration
 	One  string
@@ -46,7 +48,7 @@ type Config struct {
 	DefaultLayout string
 }
 
-//Predefined english configuration
+// English english configuration
 var English = Config{
 	PastPrefix:   "",
 	PastSuffix:   " ago",
@@ -68,112 +70,26 @@ var English = Config{
 	DefaultLayout: "2006-01-02",
 }
 
-var Portuguese = Config{
-	PastPrefix:   "há ",
-	PastSuffix:   "",
-	FuturePrefix: "daqui a ",
-	FutureSuffix: "",
-
-	Periods: []FormatPeriod{
-		FormatPeriod{time.Second, "um segundo", "%d segundos"},
-		FormatPeriod{time.Minute, "um minuto", "%d minutos"},
-		FormatPeriod{time.Hour, "uma hora", "%d horas"},
-		FormatPeriod{Day, "um dia", "%d dias"},
-		FormatPeriod{Month, "um mês", "%d meses"},
-		FormatPeriod{Year, "um ano", "%d anos"},
-	},
-
-	Zero: "menos de um segundo",
-
-	Max:           73 * time.Hour,
-	DefaultLayout: "02-01-2006",
-}
-
-var Chinese = Config{
+// Korean stuff
+var Korean = Config{
 	PastPrefix:   "",
-	PastSuffix:   "前",
-	FuturePrefix: "于 ",
-	FutureSuffix: "",
-
-	Periods: []FormatPeriod{
-		FormatPeriod{time.Second, "1 秒", "%d 秒"},
-		FormatPeriod{time.Minute, "1 分钟", "%d 分钟"},
-		FormatPeriod{time.Hour, "1 小时", "%d 小时"},
-		FormatPeriod{Day, "1 天", "%d 天"},
-		FormatPeriod{Month, "1 月", "%d 月"},
-		FormatPeriod{Year, "1 年", "%d 年"},
-	},
-
-	Zero: "1 秒",
-
-	Max:           73 * time.Hour,
-	DefaultLayout: "2006-01-02",
-}
-
-//Predefined french configuration
-var French = Config{
-	PastPrefix:   "il y a ",
-	PastSuffix:   "",
-	FuturePrefix: "dans ",
-	FutureSuffix: "",
-
-	Periods: []FormatPeriod{
-		FormatPeriod{time.Second, "environ une seconde", "moins d'une minute"},
-		FormatPeriod{time.Minute, "environ une minute", "%d minutes"},
-		FormatPeriod{time.Hour, "environ une heure", "%d heures"},
-		FormatPeriod{Day, "un jour", "%d jours"},
-		FormatPeriod{Month, "un mois", "%d mois"},
-		FormatPeriod{Year, "un an", "%d ans"},
-	},
-
-	Zero: "environ une seconde",
-
-	Max:           73 * time.Hour,
-	DefaultLayout: "02/01/2006",
-}
-
-//Predefined german configuration
-var German = Config{
-	PastPrefix:   "vor ",
-	PastSuffix:   "",
+	PastSuffix:   " 전",
 	FuturePrefix: "in ",
 	FutureSuffix: "",
 
 	Periods: []FormatPeriod{
-		FormatPeriod{time.Second, "einer Sekunde", "%d Sekunden"},
-		FormatPeriod{time.Minute, "einer Minute", "%d Minuten"},
-		FormatPeriod{time.Hour, "einer Stunde", "%d Stunden"},
-		FormatPeriod{Day, "einem Tag", "%d Tagen"},
-		FormatPeriod{Month, "einem Monat", "%d Monaten"},
-		FormatPeriod{Year, "einem Jahr", "%d Jahren"},
+		FormatPeriod{time.Second, "about a second", "%d초"},
+		FormatPeriod{time.Minute, "about a minute", "%d분"},
+		FormatPeriod{time.Hour, "about an hour", "%d시간"},
+		FormatPeriod{Day, "하루", "%d일"},
+		FormatPeriod{Month, "1개월", "%d개월"},
+		FormatPeriod{Year, "1년", "%d년"},
 	},
 
-	Zero: "einer Sekunde",
+	Zero: "about a second",
 
-	Max:           73 * time.Hour,
-	DefaultLayout: "02.01.2006",
-}
-
-//Predefined turkish configuration
-var Turkish = Config{
-	PastPrefix:   "",
-	PastSuffix:   " önce",
-	FuturePrefix: "",
-	FutureSuffix: " içinde",
-
-	Periods: []FormatPeriod{
-		FormatPeriod{time.Second, "yaklaşık bir saniye", "%d saniye"},
-		FormatPeriod{time.Minute, "yaklaşık bir dakika", "%d dakika"},
-		FormatPeriod{time.Hour, "yaklaşık bir saat", "%d saat"},
-		FormatPeriod{Day, "bir gün", "%d gün"},
-		FormatPeriod{Month, "bir ay", "%d ay"},
-		FormatPeriod{Year, "bir yıl", "%d yıl"},
-	},
-
-	Zero: "yaklaşık bir saniye",
-
-	Max:           73 * time.Hour,
-	DefaultLayout: "02/01/2006",
+	Max:           10 * 365 * 24 * time.Hour,
+	DefaultLayout: "2006-01-02",
 }
 
 //Format returns a textual representation of the time value formatted according to the layout
