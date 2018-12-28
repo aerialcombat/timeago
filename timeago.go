@@ -74,8 +74,8 @@ var English = Config{
 var Korean = Config{
 	PastPrefix:   "",
 	PastSuffix:   " 전",
-	FuturePrefix: "in ",
-	FutureSuffix: "",
+	FuturePrefix: " ",
+	FutureSuffix: " 후",
 
 	Periods: []FormatPeriod{
 		FormatPeriod{time.Second, "about a second", "%d초"},
@@ -86,7 +86,7 @@ var Korean = Config{
 		FormatPeriod{Year, "1년", "%d년"},
 	},
 
-	Zero: "about a second",
+	Zero: "방금",
 
 	Max:           10 * 365 * 24 * time.Hour,
 	DefaultLayout: "2006-01-02",
